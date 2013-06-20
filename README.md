@@ -1,4 +1,4 @@
-Googlable iPlayer
+Agogo Bell – a searchable iPlayer subtitle database
 ==
 
 Search BBC iPlayer programmes for occurrences of a word or phrase, and
