@@ -32,7 +32,7 @@ class fetch_and_store_subtitles():
             self.process_subtitle_file(file_path, file_db_id)
 
     def fetch_subtitle_file(self, pid):
-        fetch_file_cmd = './get_iplayer --subs-only --output="%s/" --pid=%s' % (config.SUBTITLE_DIR, pid)
+        fetch_file_cmd = 'perl get_iplayer.pl --subs-only --output="%s/" --pid=%s' % (config.SUBTITLE_DIR, pid)
         # TODO: check this worked!
         self.__silent_exec(fetch_file_cmd)
 
@@ -40,14 +40,14 @@ class fetch_and_store_subtitles():
     Fetch a list of IDs for news programmes from the last 24 hours
     '''
     def fetch_new_episode_ids(self):
-        list_new_episodes_cmd = './get_iplayer --type=tv --category=news --exclude-channel=parliament --since=24 --hide --skipdeleted'
+        list_new_episodes_cmd = 'perl get_iplayer.pl --type=tv --category=news --exclude-channel=parliament --since=24 --hide --skipdeleted'
         raw_new_episodes = self.__silent_exec(list_new_episodes_cmd)
         return re.findall('\n(\d+):\t', raw_new_episodes)
 
     def fetch_episode_info(self, iplayer_id):
         interesting_fields = ["categories", "channel", "descshort", "episode", "fileprefix", "name", "pid", "player", "thumbnail", "title"]
         fields_re = "|".join(interesting_fields)
-        gi_info_cmd = './get_iplayer --info %s' % iplayer_id
+        gi_info_cmd = 'perl get_iplayer.pl --info %s' % iplayer_id
         raw_episode_info = self.__silent_exec(gi_info_cmd)
         episode_info = dict(re.findall('\n(%s): +(.*)' % fields_re, raw_episode_info))
         if 'title' not in episode_info:
