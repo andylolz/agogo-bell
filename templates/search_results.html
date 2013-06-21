@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <title>Search results</title>
+</head>
+<body>
+<h1>Searching for: {{ search_term }}</h1>
+{% if results %}
+  {% for result in results %}
+  <p>
+    Filename: {{ result.filename }}<br>
+    &ldquo;{{ result.subtitle }}&rdquo;<br>
+    {{ result.from }} &ndash; {{ result.to }}
+  </p>
+  {% endfor %}
+{% else %}
+  <h2>No results</h2>
+{% endif %}
+</body>
+</html>
