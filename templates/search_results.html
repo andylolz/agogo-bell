@@ -8,9 +8,9 @@
 {% if results %}
   {% for result in results %}
   <p>
-    Filename: {{ result.filename }}<br>
-    &ldquo;{{ result.subtitle }}&rdquo;<br>
-    {{ result.from }} &ndash; {{ result.to }}
+    &ldquo;{{ result.subtitle.line }}&rdquo;<br>
+    {{ result.subtitle.from }} &ndash; {{ result.subtitle.to }}<br>
+    <a target="_blank" href="{{ result.episode.player }}?t={{ result.timestamp }}s">Watch it here.</a>
   </p>
   {% endfor %}
 {% else %}

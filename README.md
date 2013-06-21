@@ -11,10 +11,3 @@ Using Phil Lewis’ excellent
 [get_iplayer](http://linuxcexntre.net/getiplayer), we can download and
 index iPlayer subtitles. We store timestamps, so it’s possible to embed
 the original iplayer content.
-
-```
-get_iplayer --info --type=tv --category=news --exclude-channel=parliament --since=24 --hide --skipdeleted --subs-only --output="subtitles/" --get
-```
-
-TODO!
-
