@@ -13,7 +13,7 @@ def search(phrase):
     results = [{
         "score": hit['score'],
         "subtitle": hit['obj'],
-        "timestamp": int(hit['obj']['from']) - 10,
+        "timestamp": max(0, int(hit['obj']['from']) - 10),  # rewind about 10 seconds
         "episode": db.files.find_one({'_id': hit['obj']['file']}),
     } for hit in hits]
     return render_template('search_results.html', results=results, search_term=phrase)

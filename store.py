@@ -11,7 +11,6 @@ import config
 class fetch_and_store_subtitles():
     def __init__(self):
         self.db = utils.get_connection()
-        self.__clear()
         self.fetch_subtitles()
 
     def fetch_subtitles(self):
