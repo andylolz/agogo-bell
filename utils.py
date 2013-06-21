@@ -1,5 +1,5 @@
 import os
-import urlparse
+from urlparse import urlparse
 
 import pymongo
 
