@@ -71,12 +71,13 @@ class fetch_and_store_subtitles():
                     break
 
                 # parse the timestamp
-                line = lines.readline()
-                t = re.match('(\d{2}):(\d{2}):(\d{2}),(\d{3}) --> (\d{2}):(\d{2}):(\d{2}),(\d{3})\n', line)
+                timestamp = lines.readline()
+                t = re.match('(\d{2}):(\d{2}):(\d{2}),(\d{3}) --> (\d{2}):(\d{2}):(\d{2}),(\d{3})\n', timestamp)
                 t_from = (int(t.group(1)) * 60 * 60) + (int(t.group(2)) * 60) + int(t.group(3)) + (int(t.group(4)) / 1000.)
                 t_to = (int(t.group(5)) * 60 * 60) + (int(t.group(6)) * 60) + int(t.group(7)) + (int(t.group(8)) / 1000.)
 
                 # there may be multiple subtitle lines
+                text = ''
                 while True:
                     line = lines.readline()
                     if line == '\n':
@@ -87,6 +88,11 @@ class fetch_and_store_subtitles():
                     if line == '':
                         # just a blank line. Move on
                         continue
+                    if text != '':
+                        text = '%s %s' % (text, line)
+                    else:
+                        text = line
+                if text != '':
                     # store the subtitle
                     self.db.subtitles.save({'text': text, 'file': file_db_id, 'from': t_from, 'to': t_to, 'frame_num': frame_num.strip()})
 

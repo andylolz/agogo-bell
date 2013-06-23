@@ -1,20 +1,21 @@
-<!doctype html>
-<html>
-<head>
-  <title>Search results</title>
-</head>
-<body>
-<h1>Searching for: {{ search_term }}</h1>
-{% if results %}
-  {% for result in results %}
-  <p>
-    &ldquo;{{ result.subtitle.line }}&rdquo;<br>
-    {{ result.subtitle.from }} &ndash; {{ result.subtitle.to }}<br>
-    <a target="_blank" href="{{ result.episode.player }}?t={{ result.timestamp }}s">Watch it here.</a>
-  </p>
-  {% endfor %}
-{% else %}
-  <h2>No results</h2>
-{% endif %}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Search results{% endblock %}
+
+{% block body %}
+  {% include "search_form.html" %}
+  
+  <h1>Searching for: {{ search_term }}</h1>
+  {% if results %}
+    <h2>{{ results|count }} results found.</h2>
+    {% for result in results %}
+    <div>
+      <h3>{{ result.episode.title }}</h3>
+      <a target="_blank" href="{{ result.episode.player }}?t={{ result.timestamp }}s"><img src="{{ result.episode.thumbnail }}" /></a>
+      <blockquote>&ldquo;{{ result.subtitle.text }}&rdquo;</blockquote>
+    </div>
+    {% endfor %}
+  {% else %}
+    <h2>No results</h2>
+  {% endif %}
+{% endblock %}
