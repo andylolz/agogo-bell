@@ -65,8 +65,8 @@ class fetch_and_store_subtitles():
         with open(file_path) as lines:
             while True:
                 # ignore the subtitle frame counter
-                line = lines.readline()
-                if not line:
+                frame_num = lines.readline()
+                if not frame_num:
                     # if we hit this, we're at the end of the file
                     break
 
@@ -88,7 +88,7 @@ class fetch_and_store_subtitles():
                         # just a blank line. Move on
                         continue
                     # store the subtitle
-                    self.db.subtitles.save({'line': line, 'file': file_db_id, 'from': t_from, 'to': t_to})
+                    self.db.subtitles.save({'text': text, 'file': file_db_id, 'from': t_from, 'to': t_to, 'frame_num': frame_num.strip()})
 
     def __silent_exec(self, cmd):
         with open(os.devnull, "w") as f:
