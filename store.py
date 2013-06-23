@@ -39,7 +39,7 @@ class fetch_and_store_subtitles():
     Fetch a list of IDs for news programmes from the last 24 hours
     '''
     def fetch_new_episode_ids(self):
-        list_new_episodes_cmd = 'perl get_iplayer.pl --type=tv --category=news --exclude-channel=parliament --since=24 --hide --skipdeleted'
+        list_new_episodes_cmd = 'perl get_iplayer.pl --type=tv --category=news --since=24 --hide --skipdeleted'
         raw_new_episodes = self.__silent_exec(list_new_episodes_cmd)
         return re.findall('\n(\d+):\t', raw_new_episodes)
 
